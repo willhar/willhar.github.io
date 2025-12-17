@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Will Harwood</title>
+
+  <style>
+  :root {
+    --bg: #F5E7DE;        
+    --surface: #FAF2EC;   
+    --text: #2B2B2B;    
+    --muted: #6B5E57;   
+    --accent: #F2BFA4;   
+    --border: #E3CFC2;
+    --link: #C97A4A;     
+  }
+
+  body {
+    margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+                 Roboto, Helvetica, Arial, sans-serif;
+    background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 100%);
+    color: var(--text);
+    line-height: 1.6;
+  }
+
+  .container {
+    max-width: 760px;
+    padding: 3rem 1.5rem;
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-size: 2.4rem;
+    margin-bottom: 0.25rem;
+    letter-spacing: -0.02em;
+  }
+
+  .subtitle {
+    color: var(--muted);
+    margin-bottom: 1.5rem;
+  }
+
+  section {
+    margin-bottom: 2.75rem;
+  }
+
+  h2 {
+    font-size: 1.35rem;
+    margin-bottom: 0.75rem;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 0.35rem;
+    letter-spacing: -0.01em;
+  }
+
+  ul {
+    padding-left: 1.2rem;
+  }
+
+  li {
+    margin-bottom: 0.9rem;
+    padding: 0.4rem 0.25rem;
+    border-radius: 6px;
+    transition: background 0.2s ease, padding 0.2s ease;
+  }
+
+  .card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 1.25rem;
+  transition: background 0.2s ease, transform 0.15s ease;
+}
+
+.card:hover {
+  background: rgba(242, 191, 164, 0.15);
+  transform: translateY(-2px);
+}
+
+  a {
+    color: var(--link);
+    text-decoration: none;
+    font-weight: 500;
+  }
+
+  a:hover {
+    text-decoration: underline;
+  }
+
+  .muted {
+    color: var(--muted);
+  }
+
+  footer {
+    color: var(--muted);
+    font-size: 0.85rem;
+    margin-top: 3.5rem;
+    border-top: 1px solid var(--border);
+    padding-top: 1rem;
+  }
+</style>
+
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>Will Harwood</h1>
+      <div class="subtitle">Data Science & Statistics @ Northwestern University</div>
+
+      <div class="contact">
+        <a href="mailto:willharwood@u.northwestern.edu">willharwood@u.northwestern.edu</a>
+        · (262) 666-2428 ·
+        <a href="https://linkedin.com/in/will-harwood-49216b323" target="_blank">LinkedIn</a>
+        · <a href="https://github.com/willhar" target="_blank">GitHub</a>
+      </div>
+    </header>
+
+    <section>
+      <h2>About</h2>
+      <div>
+        <p>
+          I am studying Data Science and Statistics at Northwestern University.
+          My current focus is applied data analytics and building data visualizations,
+          with a long-term goal of mastering advanced machine learning techniques in Python.
+        </p>
+        <p>
+          I am particularly interested in Sports Analytics and Financial Analysis,
+          using statistical modeling and programming tools developed through coursework
+          and independent projects.
+        </p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Projects</h2>
+
+      <div class="card">
+        <h3>Steam Data Visualization App</h3>
+        <p>
+          Interactive R Shiny application for exploring Steam player counts and
+          trends across games and time.
+        </p>
+        <div class="links">
+          <a href="https://willha.shinyapps.io/SteamDataVisualizations/" target="_blank">
+            Live App →
+          </a>
+          <a href="https://github.com/willhar/Steam_Data_Visualization_App" target="_blank">
+            GitHub →
+          </a>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Steam Player Data Analysis</h3>
+        <p>
+          Exploratory and statistical analysis of Steam game data using Python,
+          focusing on player trends and game characteristics.
+        </p>
+        <div class="links">
+          <a href="https://github.com/willhar/Game_Data_Analysis" target="_blank">
+            GitHub →
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Education</h2>
+
+      <div>
+        <strong>Northwestern University</strong><br />
+        Bachelor of Arts in Data Science and Statistics<br />
+        <span style="color: var(--muted);">
+          Expected June 2028 · GPA: 4.00/4.00 · Dean’s List (4/4 quarters)
+        </span>
+      </div>
+
+      <div>
+        <strong>Homestead High School</strong><br />
+        High School Diploma<br />
+        <span style="color: var(--muted);">
+          GPA: 4.00/4.00 · Weighted GPA: 4.48 · Distinguished Graduate
+        </span>
+      </div>
+    </section>
+
+    <section>
+      <h2>Relevant Classwork</h2>
+      <div class="two-col">
+        <div>
+          <strong>Completed</strong>
+          <ul>
+            <li>Data Visualization with R (ggplot2)</li>
+            <li>SQL & Databases</li>
+            <li>Web Scraping</li>
+            <li>Pandas & NumPy</li>
+            <li>Probability Distributions</li>
+            <li>Data Structures & Algorithms</li>
+          </ul>
+        </div>
+
+        <div>
+          <strong>Planned (by Summer 2026)</strong>
+          <ul>
+            <li>Supervised & Unsupervised Machine Learning</li>
+            <li>Regression Analysis</li>
+            <li>Differential Equations</li>
+            <li>Hypothesis Testing & Inference</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Skills & Interests</h2>
+      <div>
+        <p>
+          <strong>Skills:</strong> Python, R, SQL, HTML/CSS, Machine Learning,
+          Data Visualization, LLMs & AI
+        </p>
+        <p>
+          <strong>Interests:</strong> Chess, Premier League, NBA, NFL, Traveling
+        </p>
+      </div>
+    </section>
+
+    <footer>
+      © 2025 Will Harwood
+    </footer>
+  </div>
+</body>
+</html>
