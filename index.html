@@ -3,278 +3,199 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Will Harwood's Projects</title>
-
+  <title>Will Harwood | Home</title>
   <style>
-  :root {
-    --bg: #F5E7DE;        
-    --surface: #FAF2EC;   
-    --text: #2B2B2B;    
-    --muted: #6B5E57;   
-    --accent: #F2BFA4;   
-    --border: #E3CFC2;
-    --link: #C97A4A;     
-  }
+    :root {
+      --bg: #f5f0e9;
+      --surface: #fdfaf6;
+      --text: #2d2a28;
+      --muted: #655d57;
+      --accent: #d8b89a;
+      --border: #ddcfc0;
+      --link: #8f5e3b;
+    }
 
-  body {
-    margin: 0;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
-                 Roboto, Helvetica, Arial, sans-serif;
-    background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 100%);
-    color: var(--text);
-    line-height: 1.6;
-  }
+    * {
+      box-sizing: border-box;
+    }
 
-  .container {
-    max-width: 760px;
-    padding: 3rem 1.5rem;
-    margin: 0 auto;
-  }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
 
-  h1 {
-    font-size: 2.4rem;
-    margin-bottom: 0.25rem;
-    letter-spacing: -0.02em;
-  }
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2.75rem 1.5rem 3.5rem;
+    }
 
-  .subtitle {
-    color: var(--muted);
-    margin-bottom: 1.5rem;
-  }
+    header {
+      border-bottom: 2px solid var(--accent);
+      padding-bottom: 1.1rem;
+      margin-bottom: 2.2rem;
+    }
 
-  section {
-    margin-bottom: 2.75rem;
-  }
+    .top-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      align-items: baseline;
+      flex-wrap: wrap;
+    }
 
-  h2 {
-    font-size: 1.35rem;
-    margin-bottom: 0.75rem;
-    border-bottom: 2px solid var(--accent);
-    padding-bottom: 0.35rem;
-    letter-spacing: -0.01em;
-  }
+    h1 {
+      margin: 0;
+      font-size: clamp(2rem, 5vw, 2.9rem);
+      letter-spacing: -0.02em;
+    }
 
-  ul {
-    padding-left: 1.2rem;
-  }
+    nav {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.95rem;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
 
-  li {
-    margin-bottom: 0.9rem;
-    padding: 0.4rem 0.25rem;
-    border-radius: 6px;
-    transition: background 0.2s ease, padding 0.2s ease;
-  }
+    .subtitle {
+      margin-top: 0.35rem;
+      color: var(--muted);
+    }
 
-  .card {
-  background: var(--surface);
-  border: 1px solid var(--border);
-  border-radius: 12px;
-  padding: 1.5rem;
-  margin-bottom: 1.25rem;
-  transition: background 0.2s ease, transform 0.15s ease;
-}
+    .hero {
+      margin-bottom: 2rem;
+      padding: 1.2rem 0;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
 
-.card:hover {
-  background: rgba(242, 191, 164, 0.15);
-  transform: translateY(-2px);
-}
+    .hero p {
+      max-width: 70ch;
+      margin: 0.5rem 0;
+    }
 
-  a {
-    color: var(--link);
-    text-decoration: none;
-    font-weight: 500;
-  }
+    .link-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-top: 0.75rem;
+    }
 
-  a:hover {
-    text-decoration: underline;
-  }
+    section {
+      margin-top: 2rem;
+    }
 
-  .muted {
-    color: var(--muted);
-  }
+    h2 {
+      margin: 0 0 0.8rem;
+      font-size: 1.2rem;
+      letter-spacing: 0.01em;
+    }
 
-  footer {
-    color: var(--muted);
-    font-size: 0.85rem;
-    margin-top: 3.5rem;
-    border-top: 1px solid var(--border);
-    padding-top: 1rem;
-  }
-</style>
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 0.85rem;
+    }
 
+    .panel {
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.5);
+      padding: 0.9rem;
+    }
+
+    .panel strong {
+      display: block;
+      margin-bottom: 0.35rem;
+    }
+
+    a {
+      color: var(--link);
+      text-decoration: none;
+      font-weight: 600;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      margin-top: 3rem;
+      color: var(--muted);
+      font-size: 0.88rem;
+      border-top: 1px solid var(--border);
+      padding-top: 1rem;
+    }
+  </style>
 </head>
-
 <body>
   <div class="container">
     <header>
-      <h1>Will Harwood</h1>
-      <div class="subtitle">Data Science & Statistics @ Northwestern University</div>
-
-      <div class="contact">
-        <a href="mailto:willharwood@u.northwestern.edu">willharwood@u.northwestern.edu</a>
-        ·
-        <a href="https://linkedin.com/in/will-harwood-49216b323" target="_blank">LinkedIn</a>
-        · <a href="https://github.com/willhar" target="_blank">GitHub</a>
+      <div class="top-row">
+        <h1>Will Harwood</h1>
+        <nav>
+          <a href="index.html">Home</a>
+          <a href="projects.html">Projects</a>
+        </nav>
       </div>
+      <div class="subtitle">Data Science & Statistics @ Northwestern University</div>
     </header>
 
-    <section>
-      <h2>About</h2>
-      <div>
-        <p>
-          I am studying Data Science and Statistics at Northwestern University.
-          My current focus is on applied data analytics and building data visualizations,
-          with a long-term goal of mastering deep learning methods.
-        </p>
-        <p>
-          I am particularly interested in Sports Analytics and Financial Analysis,
-          using statistical modeling and programming tools developed through coursework
-          and independent projects.
-        </p>
+    <section class="hero">
+      <p>
+        I am a current sophomore working through the data science and statistics curriculum @ NU.
+      </p>
+      <p>
+        Right now I am working through Aurelien Geron's PyTorch textbook (see projects for various neural nets and classical ml stuff) and building ML foundations. I'm also messing around with local LLM inference on my own pc. My tech stack: 13600k, RTX 5070, RTX 3090, running ubuntu. Currently trying to learn how to use vLLM, Tailscale, and build my own agents. I'll update this site with progress! 
+      </p>
+      <div class="link-row">
+        <a href="projects.html">Projects</a>
+        <a href="mailto:willharwood@u.northwestern.edu">Email</a>
+        <a href="https://linkedin.com/in/will-harwood-49216b323" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+        <a href="https://github.com/willhar" target="_blank" rel="noopener noreferrer">GitHub</a>
       </div>
     </section>
 
     <section>
-      <h2>Projects</h2>
-
-       <div class="card">
-        <h3>Steam Data Visualization App</h3>
-        <p>Interactive R Shiny application for exploring Steam player counts and trends across games and time.</p>
-        <iframe src="https://willha.shinyapps.io/SteamDataVisualizations/"
-                width="100%" height="600"
-                style="border:1px solid var(--border); border-radius:8px;"
-                title="Steam Data Visualization App"></iframe>
-        <div class="links">
-          <a href="https://willha.shinyapps.io/SteamDataVisualizations/" target="_blank">Live App →</a> <br>
-          <a href="https://github.com/willhar/Steam_Data_Visualization_App" target="_blank">GitHub →</a>
+      <h2>Me, briefly</h2>
+      <div class="grid">
+        <div class="panel">
+          <strong>Education</strong>
+          Northwestern University<br />
+          B.A. Data Science, B.A. Statistics<br />
+          Expected June 2028
         </div>
-      </div>
-
-      <div class="card">
-        <h3>Steam Player Data Analysis</h3>
-        <p>
-          Exploratory and statistical analysis of Steam game data using Python,
-          focusing on player trends and game characteristics.
-        </p>
-        <div class="links">
-          <a href="https://willhar.com/Game_Data_Analysis/Project_Report.html" target="_blank">
-            Project Report →
-          </a> <br>
-          <a href="https://github.com/willhar/Game_Data_Analysis" target="_blank">
-            GitHub →
-          </a>
+        <div class="panel">
+          <strong>Skills</strong>
+          Python, R, SQL,<br />
+          Data Visualization, Classical Machine Learning
         </div>
-      </div>
-
-      <div class="card">
-        <h3>Machine Learning Notes</h3>
-        <p>
-          My personal notes and projects while working through Hands-On Machine Learning with Scikit-Learn and PyTorch
-          by Aurelien Geron.
-        </p>
-        <div class="links">
-          <a href="https://willhar.com/MLNotes/exercises/BetterHousingRegression.html" target="_blank">
-            Ensemble Housing Regression (Catboost, RF, AdaBoost, more) →
-          </a> <br>
-          <a href="https://willhar.com/MLNotes/exercises/DimensionalityReduction.html" target="_blank">
-            Dimensionality Reduction Exercises →
-          </a> <br>
-          <a href="https://willhar.com/MLNotes/exercises/NumpyNN.html" target="_blank">
-            Numpy-only Neural Network →
-          </a> <br>
-          <a href="https://willhar.com/MLNotes/exercises/MovieRec.html" target="_blank">
-            Movie Recommendation PyTorch Model →
-          </a> <br>
-          <a href="https://willhar.com/MLNotes/exercises/SpamDetection.html" target="_blank">
-            Simple Email Spam Detector with a Binary Classifier →
-          </a> <br>
-          <a href="https://willhar.com/MLNotes/exercises/MoonsDecisionTree.html" target="_blank">
-            Moon Data Decision Tree and Random Forest Classifiers →
-          </a> <br>
-          <a href="https://github.com/willhar/MLNotes/" target="_blank">
-            GitHub (other projects+notes) →
-          </a>
+        <div class="panel">
+          <strong>Interests</strong>
+          Chess, Premier League, NBA, NFL, Traveling
         </div>
-      </div>
-
-      <div class="card">
-        <h3>Pychess Analysis</h3>
-        <p>
-          Customizable local engine analysis of chess games with features to auto-import games from Lichess and Chess.com. 
-          Uses Lichess API to get Depth-40 analysis of opening positions as well as human win percentages for common positions.
-          Runs as a webapp.
-        </p>
-        <div class="links">
-          <a href="https://github.com/willhar/PychessAnalysis" target="_blank">
-            Github →
-          </a> 
-        </div>
-      </div>
-      
-    </section>
-
-    <section>
-      <h2>Education</h2>
-
-      <div>
-        <strong>Northwestern University</strong><br />
-        Bachelor of Arts in Data Science and Statistics<br />
-        <span style="color: var(--muted);">
-          Expected June 2028 · GPA: 4.00/4.00 · Dean’s List (4/4 quarters)
-        </span>
-      </div>
-
-      <div>
-        <strong>Homestead High School</strong><br />
-        High School Diploma<br />
-        <span style="color: var(--muted);">
-          GPA: 4.00/4.00 · Weighted GPA: 4.48 · Distinguished Graduate
-        </span>
       </div>
     </section>
 
     <section>
-      <h2>Relevant Classwork</h2>
-      <div class="two-col">
-        <div>
+      <h2>Current Coursework Focus</h2>
+      <div class="grid">
+        <div class="panel">
           <strong>Completed</strong>
-          <ul>
-            <li>Data Visualization with R (ggplot2)</li>
-            <li>SQL & Databases</li>
-            <li>Web Scraping</li>
-            <li>Pandas & NumPy</li>
-            <li>Probability Distributions</li>
-            <li>Data Structures & Algorithms</li>
-          </ul>
+          Data Visualization with R, SQL + Databases, Web Scraping, Pandas & NumPy, Basic Probability, Data Structures, Regression Analysis, sklearn, Hypothesis Testing
         </div>
-
-        <div>
-          <strong>Planned (by Summer 2026)</strong>
-          <ul>
-            <li>Supervised & Unsupervised Machine Learning</li>
-            <li>Regression Analysis</li>
-            <li>Differential Equations</li>
-            <li>Hypothesis Testing & Inference</li>
-          </ul>
+        <div class="panel">
+          <strong>Planned by Summer 2026</strong>
+          Supervised & Unsupervised ML, Introduction to Mathematical Proofs
         </div>
-      </div>
-    </section>
-
-    <section>
-      <h2>Skills & Interests</h2>
-      <div>
-        <p>
-          <strong>Skills:</strong> Python, R, SQL, HTML/CSS, Machine Learning,
-          Data Visualization, LLMs & AI
-        </p>
-        <p>
-          <strong>Interests:</strong> Chess, Premier League, NBA, NFL, Traveling
-        </p>
       </div>
     </section>
 
     <footer>
-      © 2025 Will Harwood
+      © 2026 Will Harwood
     </footer>
   </div>
 </body>
