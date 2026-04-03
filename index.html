@@ -6,212 +6,371 @@
   <title>Will Harwood | Home</title>
   <style>
     :root {
-      --bg: #f5f0e9;
-      --surface: #fdfaf6;
-      --text: #2d2a28;
-      --muted: #655d57;
-      --accent: #d8b89a;
-      --border: #ddcfc0;
-      --link: #8f5e3b;
+      --bg: #000000;
+      --surface: transparent;
+      --text: #ffbf47;
+      --muted: #d7a14a;
+      --accent: #ffcc66;
+      --border: transparent;
+      --link: #ffd28a;
+      --glow: transparent;
+      --font: Consolas, "Courier New", monospace;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 100%);
+      font-family: var(--font);
+      background: var(--bg);
       color: var(--text);
       line-height: 1.6;
+      position: relative;
     }
 
     .container {
-      max-width: 900px;
+      max-width: 940px;
       margin: 0 auto;
-      padding: 2.75rem 1.5rem 3.5rem;
+      padding: 2.5rem 1.25rem 3rem;
+      position: relative;
+      z-index: 1;
+    }
+    #noise-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: auto;
+      opacity: 0.15;
+      mix-blend-mode: screen;
+      pointer-events: none;
+      z-index: 0;
     }
 
     header {
-      border-bottom: 2px solid var(--accent);
-      padding-bottom: 1.1rem;
-      margin-bottom: 2.2rem;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+      padding: 0;
+      margin-bottom: 1.2rem;
     }
 
     .top-row {
       display: flex;
       justify-content: space-between;
-      gap: 1rem;
       align-items: baseline;
+      gap: 1rem;
       flex-wrap: wrap;
     }
 
     h1 {
       margin: 0;
-      font-size: clamp(2rem, 5vw, 2.9rem);
+      font-size: clamp(1.7rem, 5vw, 2.6rem);
       letter-spacing: -0.02em;
     }
 
-    nav {
-      display: flex;
-      gap: 1rem;
-      font-size: 0.95rem;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-    }
-
-    .subtitle {
-      margin-top: 0.35rem;
-      color: var(--muted);
-    }
-
-    .hero {
-      margin-bottom: 2rem;
-      padding: 1.2rem 0;
-      border-top: 1px solid var(--border);
-      border-bottom: 1px solid var(--border);
-    }
-
-    .hero p {
-      max-width: 70ch;
-      margin: 0.5rem 0;
-    }
-
-    .link-row {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1rem;
-      margin-top: 0.75rem;
-    }
+    nav { display: flex; gap: 1rem; font-size: 0.95rem; }
+    .subtitle { margin-top: 0.4rem; color: var(--muted); }
+    .nu-only { color: #c9b6ff; }
 
     section {
-      margin-top: 2rem;
+      border: 0;
+      background: transparent;
+      padding: 0;
+      margin-top: 1rem;
+    }
+    section + section {
+      margin-top: 2.25rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid rgba(255, 191, 71, 0.4);
     }
 
-    h2 {
-      margin: 0 0 0.8rem;
-      font-size: 1.2rem;
-      letter-spacing: 0.01em;
+    h2 { margin: 0 0 0.75rem; font-size: 1.15rem; color: var(--text); }
+    p { margin: 0 0 0.75rem; }
+    .coursework-line { min-height: 1.8em; }
+    .coursework-typer::after {
+      content: "▌";
+      margin-left: 0.2rem;
+      animation: blink 0.9s steps(1) infinite;
+      color: var(--accent);
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
-      gap: 0.85rem;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 0.8rem;
+    }
+    .me-rotator { min-height: 6.2rem; }
+    .me-card { display: none; }
+    .me-card.active { display: block; animation: fadeInUp 0.35s ease; }
+
+    .panel { border: 0; padding: 0; background: transparent; }
+    .panel strong { display: block; margin-bottom: 0.35rem; color: var(--text); }
+
+    .link-row, .inline-links { display: flex; flex-wrap: wrap; gap: 0.9rem; }
+
+    a { color: var(--link); text-decoration: none; font-weight: 600; }
+    .hl-link {
+      background: linear-gradient(#ffbf47, #ffbf47) no-repeat left bottom;
+      background-size: 0% 2px;
+      transition: background-size 0.3s ease;
+      padding-bottom: 2px;
+    }
+    .hl-link:hover { background-size: 100% 2px; }
+    a, .scramble-link { display: inline-block; transition: transform 0.12s ease-out; will-change: transform; }
+
+    .typing::after {
+      content: "▌";
+      margin-left: 0.2rem;
+      animation: blink 0.9s steps(1) infinite;
+      color: var(--accent);
     }
 
-    .panel {
-      border: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.5);
-      padding: 0.9rem;
+    @keyframes blink {
+      50% { opacity: 0; }
     }
-
-    .panel strong {
-      display: block;
-      margin-bottom: 0.35rem;
-    }
-
-    a {
-      color: var(--link);
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    footer {
-      margin-top: 3rem;
-      color: var(--muted);
-      font-size: 0.88rem;
-      border-top: 1px solid var(--border);
-      padding-top: 1rem;
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
+  <canvas id="noise-canvas" aria-hidden="true"></canvas>
   <div class="container">
     <header>
       <div class="top-row">
-        <h1>Will Harwood</h1>
+        <h1 class="scramble-link" data-stream="Will Harwood"></h1>
         <nav>
-          <a href="index.html">Home</a>
-          <a href="projects.html">Projects</a>
+          <a href="index.html" data-stream="Home"></a>
+          <a href="projects.html" data-stream="Projects"></a>
         </nav>
       </div>
-      <div class="subtitle">Data Science & Statistics @ Northwestern University</div>
+      <div class="subtitle">
+        <span data-stream="Data Science &amp; Statistics @ "></span><span class="nu-only scramble-link" data-stream="Northwestern University"></span>
+      </div>
     </header>
 
-    <section class="hero">
-      <p>
-        I am a current sophomore working through the data science and statistics curriculum @ NU.
-      </p>
-      <p>
-        Right now I am working through Aurelien Geron's PyTorch textbook (see projects for various neural nets and classical ml stuff) and building ML foundations. I'm also messing around with local LLM inference on my own pc. My tech stack: 13600k, RTX 5070, RTX 3090, running ubuntu. Currently trying to learn how to use vLLM, Tailscale, and build my own agents. I'll update this site with progress! 
-      </p>
+    <section>
+      <p data-stream="I am a current sophomore working through the data science and statistics curriculum @ NU."></p>
+      <p data-stream="Right now I am working through Aurelien Geron's PyTorch textbook (see projects for various neural nets and classical ml stuff) and building ML foundations."></p>
+      <p data-stream="I'm also messing around with local LLM inference on my own pc."></p>
+      <p data-stream="My tech stack: 13600k, RTX 5070, RTX 3090, running Ubuntu."></p>
+      <p data-stream="Currently trying to learn how to build my own agents and models. So far I've worked on my own vector DB and basic agent to do content review and hold answers in memory."></p>
+      <p data-stream="I'll update this site with progress!"></p>
       <div class="link-row">
-        <a href="projects.html">Projects</a>
-        <a href="mailto:willharwood@u.northwestern.edu">Email</a>
-        <a href="https://linkedin.com/in/will-harwood-49216b323" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-        <a href="https://github.com/willhar" target="_blank" rel="noopener noreferrer">GitHub</a>
+        <a href="projects.html" data-stream="Projects"></a>
+        <a href="mailto:willharwood@u.northwestern.edu" data-stream="Email"></a>
+        <a href="https://linkedin.com/in/will-harwood-49216b323" target="_blank" rel="noopener noreferrer" data-stream="LinkedIn"></a>
+        <a href="https://github.com/willhar" target="_blank" rel="noopener noreferrer" data-stream="GitHub"></a>
       </div>
     </section>
 
     <section>
-      <h2>Me, briefly</h2>
-      <div class="grid">
-        <div class="panel">
-          <strong>Education</strong>
-          Northwestern University<br />
-          B.A. Data Science, B.A. Statistics<br />
-          Expected June 2028
+      <h2 data-stream="Me, briefly"></h2>
+      <div class="me-rotator">
+        <div class="panel me-card active">
+          <strong data-stream="Northwestern University"></strong>
+          <div data-stream="B.A. Data Science, B.A. Statistics"></div>
+          <div data-stream="GPA: 4.0"></div>
+          <div data-stream="Expected June 2028"></div>
         </div>
-        <div class="panel">
-          <strong>Skills</strong>
-          Python, R, SQL,<br />
-          Data Visualization, Classical Machine Learning
+        <div class="panel me-card">
+          <strong data-stream="Skills"></strong>
+          <div data-stream="Python, R, SQL,"></div>
+          <div data-stream="Data Visualization, Classical Machine Learning"></div>
+          <div data-stream="Working on: Deep Learning, Agentic AI"></div>
         </div>
-        <div class="panel">
-          <strong>Interests</strong>
-          Chess, Premier League, NBA, NFL, Traveling
+        <div class="panel me-card">
+          <strong data-stream="Interests"></strong>
+          <div data-stream="Chess, Premier League, NBA, NFL, Traveling"></div>
+          <div data-stream="I'll be studying abroad in Copenhagen this fall!""></div>
         </div>
       </div>
     </section>
 
     <section>
-      <h2>Current Coursework Focus</h2>
-      <div class="grid">
-        <div class="panel">
-          <strong>Completed</strong>
-          Data Visualization with R, SQL + Databases, Web Scraping, Pandas & NumPy, Basic Probability, Data Structures, Regression Analysis, sklearn, Hypothesis Testing
-        </div>
-        <div class="panel">
-          <strong>Planned by Summer 2026</strong>
-          Supervised & Unsupervised ML, Introduction to Mathematical Proofs
-        </div>
-      </div>
+      <h2 data-stream="Current Coursework Focus"></h2>
+      <p class="coursework-line"><span class="coursework-typer" id="coursework-typer"></span></p>
     </section>
-
-    <footer>
-      © 2026 Will Harwood
-    </footer>
   </div>
+
+  <script>
+    const allStreamTargets = Array.from(document.querySelectorAll("[data-stream]"));
+    const titleTargets = allStreamTargets.filter(node => node.matches("header h1[data-stream], section h2[data-stream]"));
+    const rotatorTargets = allStreamTargets.filter(node => node.closest(".me-rotator"));
+    const streamTargets = allStreamTargets.filter(node => !titleTargets.includes(node) && !rotatorTargets.includes(node));
+    const sessionKey = "index-streamed";
+    const courseworkEl = document.getElementById("coursework-typer");
+    const noiseCanvas = document.getElementById("noise-canvas");
+
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async function streamText(node, text) {
+      node.classList.add("typing");
+      node.textContent = "";
+      for (const ch of text) {
+        node.textContent += ch;
+        const pause = ch === " " ? 10 : ch === "." || ch === "," ? 45 : 18;
+        await sleep(pause);
+      }
+      node.classList.remove("typing");
+    }
+
+    async function runStream(nodes) {
+      for (const node of nodes) {
+        const text = node.getAttribute("data-stream") || "";
+        await streamText(node, text);
+      }
+    }
+
+    function renderNodes(nodes) {
+      for (const node of nodes) {
+        node.textContent = node.getAttribute("data-stream") || "";
+      }
+    }
+
+    function startCourseworkTyper() {
+      const phrases = [
+        "Data Visualization",
+        "SQL + Databases",
+        "Web Scraping",
+        "Pandas & NumPy",
+        "Basic Probability",
+        "Data Structures",
+        "Algorithms and Complexity",
+        "Regression Analysis",
+        "sklearn",
+        "Hypothesis Testing",
+        "Supervised & Unsupervised ML",
+        "Introduction to Mathematical Proofs"
+      ];
+      let i = 0, j = 0;
+      function type() {
+        const phrase = phrases[i];
+        courseworkEl.textContent = phrase.slice(0, ++j);
+        if (j === phrase.length) {
+          setTimeout(() => {
+            j = 0;
+            i = (i + 1) % phrases.length;
+            courseworkEl.textContent = "";
+            type();
+          }, 1200);
+          return;
+        }
+        setTimeout(type, 55);
+      }
+      type();
+    }
+
+    function startMeRotator() {
+      const cards = Array.from(document.querySelectorAll(".me-card"));
+      let i = 0;
+      setInterval(() => {
+        cards[i].classList.remove("active");
+        i = (i + 1) % cards.length;
+        cards[i].classList.add("active");
+      }, 3200);
+    }
+
+    const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*";
+    function scramble(el, original) {
+      let iter = 0;
+      const interval = setInterval(() => {
+        el.textContent = original.split("").map((c, i) => {
+          if (c === " ") return " ";
+          if (i < iter) return original[i];
+          return chars[Math.floor(Math.random() * chars.length)];
+        }).join("");
+        if (iter >= original.length) clearInterval(interval);
+        iter += 0.5;
+      }, 30);
+    }
+
+    function initScramble() {
+      document.querySelectorAll(".scramble-link").forEach(el => {
+        const original = el.textContent;
+        el.addEventListener("mouseenter", () => scramble(el, original));
+      });
+    }
+
+    function generateNoise(canvas) {
+      const ctx = canvas.getContext("2d");
+      const w = canvas.width, h = canvas.height;
+      const img = ctx.createImageData(w, h);
+      for (let i = 0; i < img.data.length; i += 4) {
+        const v = Math.random() * 255;
+        img.data[i] = img.data[i + 1] = img.data[i + 2] = v;
+        img.data[i + 3] = 255;
+      }
+      ctx.putImageData(img, 0, 0);
+    }
+
+    function initNoise() {
+      let lastW = 0;
+      let lastH = 0;
+      const resize = () => {
+        const w = window.innerWidth;
+        const h = Math.max(
+          document.body.scrollHeight,
+          document.documentElement.scrollHeight,
+          window.innerHeight
+        );
+        if (w === lastW && h === lastH) return;
+        lastW = w;
+        lastH = h;
+        noiseCanvas.width = w;
+        noiseCanvas.height = h;
+        generateNoise(noiseCanvas);
+      };
+      resize();
+      window.addEventListener("resize", resize);
+      window.addEventListener("scroll", resize, { passive: true });
+      if ("ResizeObserver" in window) {
+        const ro = new ResizeObserver(resize);
+        ro.observe(document.body);
+        ro.observe(document.documentElement);
+      }
+      setTimeout(resize, 250);
+    }
+
+    renderNodes(rotatorTargets);
+
+    if (sessionStorage.getItem(sessionKey)) {
+      renderNodes(titleTargets);
+      renderNodes(streamTargets);
+      startCourseworkTyper();
+      startMeRotator();
+      initScramble();
+    } else {
+      runStream(titleTargets).then(() => {
+        startCourseworkTyper();
+        startMeRotator();
+        return runStream(streamTargets);
+      }).then(() => {
+        sessionStorage.setItem(sessionKey, "1");
+        initScramble();
+      });
+    }
+
+    function initMagnetic() {
+      const magneticEls = document.querySelectorAll("a, .scramble-link");
+      for (const btn of magneticEls) {
+        btn.addEventListener("mousemove", (e) => {
+          const rect = btn.getBoundingClientRect();
+          const dx = e.clientX - (rect.left + rect.width / 2);
+          const dy = e.clientY - (rect.top + rect.height / 2);
+          btn.style.transform = `translate(${dx * 0.25}px, ${dy * 0.25}px)`;
+        });
+        btn.addEventListener("mouseleave", () => { btn.style.transform = ""; });
+      }
+    }
+
+    document.querySelectorAll("a").forEach(el => el.classList.add("hl-link"));
+    initNoise();
+    initMagnetic();
+  </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

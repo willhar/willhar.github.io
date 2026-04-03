@@ -6,171 +6,347 @@
   <title>Will Harwood | Projects</title>
   <style>
     :root {
-      --bg: #f5f0e9;
-      --surface: #fdfaf6;
-      --text: #2d2a28;
-      --muted: #655d57;
-      --accent: #d8b89a;
-      --border: #ddcfc0;
-      --link: #8f5e3b;
+      --bg: #000000;
+      --surface: transparent;
+      --text: #ffbf47;
+      --muted: #d7a14a;
+      --accent: #ffcc66;
+      --border: transparent;
+      --link: #ffd28a;
+      --glow: transparent;
+      --font: Consolas, "Courier New", monospace;
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     body {
       margin: 0;
-      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      background: linear-gradient(180deg, var(--bg) 0%, var(--surface) 100%);
+      font-family: var(--font);
+      background: var(--bg);
       color: var(--text);
       line-height: 1.6;
+      position: relative;
     }
 
     .container {
-      max-width: 900px;
+      max-width: 940px;
       margin: 0 auto;
-      padding: 2.75rem 1.5rem 3.5rem;
+      padding: 2.5rem 1.25rem 3rem;
+      position: relative;
+      z-index: 1;
+    }
+    #noise-canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: auto;
+      opacity: 0.15;
+      mix-blend-mode: screen;
+      pointer-events: none;
+      z-index: 0;
     }
 
     header {
-      border-bottom: 2px solid var(--accent);
-      padding-bottom: 1.1rem;
-      margin-bottom: 2.2rem;
+      border: 0;
+      background: transparent;
+      box-shadow: none;
+      padding: 0;
+      margin-bottom: 1.2rem;
     }
 
     .top-row {
       display: flex;
       justify-content: space-between;
-      gap: 1rem;
       align-items: baseline;
+      gap: 1rem;
       flex-wrap: wrap;
     }
 
     h1 {
       margin: 0;
-      font-size: clamp(1.9rem, 5vw, 2.5rem);
+      font-size: clamp(1.7rem, 5vw, 2.4rem);
       letter-spacing: -0.02em;
     }
 
-    nav {
-      display: flex;
-      gap: 1rem;
-      font-size: 0.95rem;
-      text-transform: uppercase;
-      letter-spacing: 0.03em;
-    }
+    nav { display: flex; gap: 1rem; font-size: 0.95rem; }
+    .subtitle { margin-top: 0.4rem; color: var(--muted); }
 
-    .subtitle {
-      margin-top: 0.35rem;
-      color: var(--muted);
+    .projects-rotator { margin-top: 1rem; min-height: 20rem; }
+    .project { display: none; }
+    .project.active { display: block; animation: fadeInUp 0.35s ease; }
+    .project.active-next { display: block; animation: fadeInUp 0.35s ease; margin-top: 1.6rem; }
+    .projects-controls { margin-top: 1rem; display: flex; gap: 1.5rem; align-items: center; justify-content: center; }
+    .projects-arrow-btn {
+      background: none;
+      border: none;
+      color: var(--text);
+      font: inherit;
+      font-size: 1.8rem;
+      line-height: 1;
+      padding: 0;
+      cursor: pointer;
     }
-
-    .projects {
-      display: grid;
-      gap: 1rem;
-    }
-
     .project {
-      border: 1px solid var(--border);
-      background: rgba(255, 255, 255, 0.5);
-      padding: 1rem;
+      border: 0;
+      background: transparent;
+      padding: 0;
+      margin-top: 0;
     }
 
-    .project h2 {
-      margin: 0 0 0.35rem;
-      font-size: 1.2rem;
+    h2 { margin: 0 0 0.55rem; font-size: 1.15rem; color: var(--text); }
+    p { margin: 0 0 0.7rem; }
+    .links { display: flex; flex-wrap: wrap; gap: 0.9rem; }
+
+    a { color: var(--link); text-decoration: none; font-weight: 600; }
+    .hl-link {
+      background: linear-gradient(#ffbf47, #ffbf47) no-repeat left bottom;
+      background-size: 0% 2px;
+      transition: background-size 0.3s ease;
+      padding-bottom: 2px;
+    }
+    .hl-link:hover { background-size: 100% 2px; }
+    a { display: inline-block; transition: transform 0.12s ease-out; will-change: transform; }
+
+    .typing::after {
+      content: "▌";
+      margin-left: 0.2rem;
+      animation: blink 0.9s steps(1) infinite;
+      color: var(--accent);
     }
 
-    .project p {
-      margin: 0 0 0.8rem;
-      color: #3a3532;
+    @keyframes blink {
+      50% { opacity: 0; }
     }
-
-    .links {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.9rem;
-      font-size: 0.95rem;
-    }
-
-    a {
-      color: var(--link);
-      text-decoration: none;
-      font-weight: 600;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    footer {
-      margin-top: 3rem;
-      color: var(--muted);
-      font-size: 0.88rem;
-      border-top: 1px solid var(--border);
-      padding-top: 1rem;
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
     }
   </style>
 </head>
 <body>
+  <canvas id="noise-canvas" aria-hidden="true"></canvas>
   <div class="container">
     <header>
       <div class="top-row">
-        <h1>Projects</h1>
+        <h1 data-stream="Projects"></h1>
         <nav>
-          <a href="index.html">Home</a>
-          <a href="projects.html">Projects</a>
+          <a href="index.html" data-stream="Home"></a>
+          <a href="projects.html" data-stream="Projects"></a>
         </nav>
       </div>
-      <div class="subtitle">Some of my work in data science, machine learning, and analytics. More to come, especially in the ml and llm space.</div>
+      <div class="subtitle" data-stream="Some of my work in data science, machine learning, and analytics. More to come, especially in the ml and llm space."></div>
     </header>
 
-    <main class="projects">
-      <article class="project">
-        <h2>Steam Data Visualization App</h2>
-        <p>Interactive R Shiny application for exploring Steam player counts and trends across games and time.</p>
-        <div class="links">
-          <a href="https://willha.shinyapps.io/SteamDataVisualizations/" target="_blank" rel="noopener noreferrer">Live App -></a>
-          <a href="https://github.com/willhar/Steam_Data_Visualization_App" target="_blank" rel="noopener noreferrer">GitHub -></a>
-        </div>
-      </article>
+    <section class="projects-rotator" id="projects-rotator">
+      <div class="projects-track" id="projects-track">
+    <article class="project">
+      <h2 data-stream="Scissrs NU"></h2>
+      <p data-stream="A dashboard I built for finding courses at Northwestern based on various statistics such as instruction, course rating, estimated hours, etc."></p>
+      <p data-stream="Required scraping tens of thousands of course reviews from Northwestern's student-available database, and designing a scraper to handle log-in challenges, making a PDF parser to handle multiple formats, and securely saving data."></p>
+      <p data-stream="Then wrote custom data aggregations based on the data scraped."></p>
+      <p data-stream="Generated AI summaries based on written reviews using local LLMs, with llama-cpp and HuggingFace."></p>
+      <p data-stream="Due to the private nature of the data, I cannot share links to this work."></p>
+    </article>
 
-      <article class="project">
-        <h2>Steam Player Data Analysis</h2>
-        <p>Exploratory and statistical analysis of Steam game data using Python, focused on player trends and game characteristics.</p>
-        <div class="links">
-          <a href="https://willhar.com/Game_Data_Analysis/Project_Report.html" target="_blank" rel="noopener noreferrer">Project Report -></a>
-          <a href="https://github.com/willhar/Game_Data_Analysis" target="_blank" rel="noopener noreferrer">GitHub -></a>
-        </div>
-      </article>
+    <article class="project">
+      <h2 data-stream="Steam Data Visualization App"></h2>
+      <p data-stream="Interactive R Shiny app for exploring Steam player trends across games and time."></p>
+      <div class="links">
+        <a href="https://willha.shinyapps.io/SteamDataVisualizations/" target="_blank" rel="noopener noreferrer" data-stream="Live App ->"></a>
+        <a href="https://github.com/willhar/Steam_Data_Visualization_App" target="_blank" rel="noopener noreferrer" data-stream="GitHub ->"></a>
+      </div>
+    </article>
 
-      <article class="project">
-        <h2>Machine Learning Notes</h2>
-        <p>Personal notes and exercise projects from Hands-On Machine Learning with Scikit-Learn and PyTorch.</p>
-        <div class="links">
-          <a href="https://willhar.com/MLNotes/exercises/BetterHousingRegression.html" target="_blank" rel="noopener noreferrer">Housing Regression -></a>
-          <a href="https://willhar.com/MLNotes/exercises/DimensionalityReduction.html" target="_blank" rel="noopener noreferrer">Dimensionality Reduction -></a>
-          <a href="https://willhar.com/MLNotes/exercises/NumpyNN.html" target="_blank" rel="noopener noreferrer">Numpy-only Neural Network -></a>
-          <a href="https://willhar.com/MLNotes/exercises/MovieRec.html" target="_blank" rel="noopener noreferrer">Movie Recommendation Model -></a>
-          <a href="https://willhar.com/MLNotes/exercises/SpamDetection.html" target="_blank" rel="noopener noreferrer">Spam Detector -></a>
-          <a href="https://willhar.com/MLNotes/exercises/MoonsDecisionTree.html" target="_blank" rel="noopener noreferrer">Tree and Forest Classifiers -></a>
-          <a href="https://github.com/willhar/MLNotes/" target="_blank" rel="noopener noreferrer">GitHub (more notes) -></a>
-        </div>
-      </article>
+    <article class="project">
+      <h2 data-stream="Steam Player Data Analysis"></h2>
+      <p data-stream="Exploratory and statistical analysis of Steam game data using Python, focused on player trends and game characteristics."></p>
+      <div class="links">
+        <a href="https://willhar.com/Game_Data_Analysis/Project_Report.html" target="_blank" rel="noopener noreferrer" data-stream="Project Report ->"></a>
+        <a href="https://github.com/willhar/Game_Data_Analysis" target="_blank" rel="noopener noreferrer" data-stream="GitHub ->"></a>
+      </div>
+    </article>
 
-      <article class="project">
-        <h2>Pychess Analysis</h2>
-        <p>Local engine analysis web app for chess games, with imports from Lichess and Chess.com plus opening position analysis.</p>
-        <div class="links">
-          <a href="https://github.com/willhar/PychessAnalysis" target="_blank" rel="noopener noreferrer">GitHub -></a>
-        </div>
-      </article>
-    </main>
+    <article class="project">
+      <h2 data-stream="Machine Learning Notes"></h2>
+      <p data-stream="Personal notes and exercise projects from Hands-On Machine Learning with Scikit-Learn and PyTorch."></p>
+      <div class="links">
+        <a href="https://willhar.com/MLNotes/exercises/BetterHousingRegression.html" target="_blank" rel="noopener noreferrer" data-stream="Housing Regression ->"></a>
+        <a href="https://willhar.com/MLNotes/exercises/DimensionalityReduction.html" target="_blank" rel="noopener noreferrer" data-stream="Dimensionality Reduction ->"></a>
+        <a href="https://willhar.com/MLNotes/exercises/NumpyNN.html" target="_blank" rel="noopener noreferrer" data-stream="Numpy-only Neural Network ->"></a>
+        <a href="https://willhar.com/MLNotes/exercises/MovieRec.html" target="_blank" rel="noopener noreferrer" data-stream="Movie Recommendation Model ->"></a>
+        <a href="https://willhar.com/MLNotes/exercises/SpamDetection.html" target="_blank" rel="noopener noreferrer" data-stream="Spam Detector ->"></a>
+        <a href="https://willhar.com/MLNotes/exercises/MoonsDecisionTree.html" target="_blank" rel="noopener noreferrer" data-stream="Tree and Forest Classifiers ->"></a>
+        <a href="https://github.com/willhar/MLNotes/" target="_blank" rel="noopener noreferrer" data-stream="GitHub (more notes) ->"></a>
+      </div>
+    </article>
 
-    <footer>
-      © 2026 Will Harwood
-    </footer>
+    <article class="project">
+      <h2 data-stream="Pychess Analysis"></h2>
+      <p data-stream="Local engine analysis web app for chess games, with imports from Lichess and Chess.com plus opening position analysis."></p>
+      <div class="links">
+        <a href="https://github.com/willhar/PychessAnalysis" target="_blank" rel="noopener noreferrer" data-stream="GitHub ->"></a>
+      </div>
+    </article>
+      </div>
+    </section>
+    <div class="projects-controls">
+      <button id="projects-prev-btn" class="projects-arrow-btn" type="button" aria-label="Previous projects">←</button>
+      <button id="projects-next-btn" class="projects-arrow-btn" type="button" aria-label="Next projects">→</button>
+    </div>
   </div>
+
+  <script>
+    const allStreamTargets = Array.from(document.querySelectorAll("[data-stream]"));
+    const titleTargets = allStreamTargets.filter(node => node.matches("header h1[data-stream]"));
+    const rotatorTargets = allStreamTargets.filter(node => node.closest(".projects-rotator"));
+    const streamTargets = allStreamTargets.filter(node => !titleTargets.includes(node) && !rotatorTargets.includes(node));
+    const sessionKey = "projects-streamed";
+    const projectsTrack = document.getElementById("projects-track");
+    const projectsPrevBtn = document.getElementById("projects-prev-btn");
+    const projectsNextBtn = document.getElementById("projects-next-btn");
+    const noiseCanvas = document.getElementById("noise-canvas");
+
+    function sleep(ms) {
+      return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    async function streamText(node, text) {
+      node.classList.add("typing");
+      node.textContent = "";
+      for (const ch of text) {
+        node.textContent += ch;
+        const pause = ch === " " ? 10 : ch === "." || ch === "," ? 45 : 18;
+        await sleep(pause);
+      }
+      node.classList.remove("typing");
+    }
+
+    async function runStream(nodes) {
+      for (const node of nodes) {
+        const text = node.getAttribute("data-stream") || "";
+        await streamText(node, text);
+      }
+    }
+
+    function renderNodes(nodes) {
+      for (const node of nodes) {
+        node.textContent = node.getAttribute("data-stream") || "";
+      }
+    }
+
+    function startProjectsRotator() {
+      const cards = Array.from(projectsTrack.querySelectorAll(".project"));
+      if (!cards.length) return;
+      let i = 0;
+      let autoTimer = null;
+
+      function showPair(nextIndex) {
+        i = (nextIndex + cards.length) % cards.length;
+        cards.forEach(card => {
+          card.classList.remove("active");
+          card.classList.remove("active-next");
+        });
+        cards[i].classList.add("active");
+        cards[(i + 1) % cards.length].classList.add("active-next");
+      }
+
+      function nextPair() {
+        showPair(i + 1);
+      }
+
+      showPair(0);
+      autoTimer = setInterval(nextPair, 8000);
+
+      function stopAuto() {
+        if (autoTimer) {
+          clearInterval(autoTimer);
+          autoTimer = null;
+        }
+      }
+
+      projectsPrevBtn.addEventListener("click", () => {
+        stopAuto();
+        showPair(i - 1);
+      });
+
+      projectsNextBtn.addEventListener("click", () => {
+        stopAuto();
+        nextPair();
+      });
+    }
+
+    function generateNoise(canvas) {
+      const ctx = canvas.getContext("2d");
+      const w = canvas.width, h = canvas.height;
+      const img = ctx.createImageData(w, h);
+      for (let i = 0; i < img.data.length; i += 4) {
+        const v = Math.random() * 255;
+        img.data[i] = img.data[i + 1] = img.data[i + 2] = v;
+        img.data[i + 3] = 255;
+      }
+      ctx.putImageData(img, 0, 0);
+    }
+
+    function initNoise() {
+      let lastW = 0;
+      let lastH = 0;
+      const resize = () => {
+        const w = window.innerWidth;
+        const h = Math.max(
+          document.body.scrollHeight,
+          document.documentElement.scrollHeight,
+          window.innerHeight
+        );
+        if (w === lastW && h === lastH) return;
+        lastW = w;
+        lastH = h;
+        noiseCanvas.width = w;
+        noiseCanvas.height = h;
+        generateNoise(noiseCanvas);
+      };
+      resize();
+      window.addEventListener("resize", resize);
+      window.addEventListener("scroll", resize, { passive: true });
+      if ("ResizeObserver" in window) {
+        const ro = new ResizeObserver(resize);
+        ro.observe(document.body);
+        ro.observe(document.documentElement);
+      }
+      setTimeout(resize, 250);
+    }
+
+    renderNodes(rotatorTargets);
+
+    if (sessionStorage.getItem(sessionKey)) {
+      renderNodes(titleTargets);
+      renderNodes(streamTargets);
+      startProjectsRotator();
+    } else {
+      runStream(titleTargets).then(() => {
+        startProjectsRotator();
+        return runStream(streamTargets);
+      }).then(() => {
+        sessionStorage.setItem(sessionKey, "1");
+      });
+    }
+
+    function initMagnetic() {
+      const magneticEls = document.querySelectorAll("a");
+      for (const btn of magneticEls) {
+        btn.addEventListener("mousemove", (e) => {
+          const rect = btn.getBoundingClientRect();
+          const dx = e.clientX - (rect.left + rect.width / 2);
+          const dy = e.clientY - (rect.top + rect.height / 2);
+          btn.style.transform = `translate(${dx * 0.25}px, ${dy * 0.25}px)`;
+        });
+        btn.addEventListener("mouseleave", () => { btn.style.transform = ""; });
+      }
+    }
+
+    document.querySelectorAll("a").forEach(el => el.classList.add("hl-link"));
+    initNoise();
+    initMagnetic();
+  </script>
 </body>
 </html>
